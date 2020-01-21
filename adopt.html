@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search Pets</title>
+</head>
+<body>
+    <nav>
+
+    </nav>
+    <main>
+        <a href="index.html">Home</a>
+        <form>
+            <fieldset>
+                <h1>Search results for:</h1>
+                <input placeholder="City, State, or Zip" type="text" name="location" id="location" required/>
+                <select name="pets" id="pets" required>
+                    <option value="dog" selected>Dogs</option>
+                    <option value="cat">Cats</option>
+                    <option value="rabbit">Rabbits</option>
+                    <option value="horse">Horses</option>
+                    <option value="bird">Birds</option>
+                    <option value="barnyard">Barnyard</option>
+                    <option value="small-furry">Small and Furry</option>
+                    <option value="scales-fins-other">Scales, Fins, and Other</option>
+                </select>
+                <select name="distance" id="distance" required>
+                    <option value="10" selected>10 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="50">50 miles</option>
+                    <option value="100">100 miles</option>
+                </select>
+                <input type="submit" value="Submit" id="submit"> 
+            </fieldset>
+        </form>
+        <section class="js-results hidden">
+                <h2>Available</h2>
+                <ul class="js-results-list">                    
+                </ul>
+        </section>
+    </main>
+    <footer></footer>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+    <script src="authenticate.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
