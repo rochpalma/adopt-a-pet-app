@@ -3,19 +3,27 @@
 function displayResults(responseJson){
     console.log(responseJson);
     for(let element of responseJson.animals){
-        for(let imgElement of element.photos){
+        for(let picElement of element.photos){
             $('.js-results-list').append(
-                `<li>
-                    <img src="${imgElement.full}" alt="animal">
+                `<li class="box">
+                    <img src="${picElement.full}" alt="animal" class="pet-img">
                     <h3>${element.name}</h3>
                     <p>${element.gender} | ${element.age}</p>
                     <p>${element.breeds.primary}</p>
                     <p>${element.contact.address.city}, ${element.contact.address.state}</p>
-                    <input type="button" value="Meet me"> 
+                    <div id="${element.id}" class="modal">  
+                        <img src="${picElement.full}" alt="animal" class="pet-img">
+                        <h3>${element.name}</h3>
+                        <p>${element.gender} | ${element.age}</p>
+                        <p>${element.breeds.primary}</p>
+                        <p>${element.contact.address.city}, ${element.contact.address.state}</p>
+                    </div> 
+                    <p><a href="#${element.id}" rel="modal:open">Meet Me</a></p>
                 </li>`  
             ); 
-        }        
-    }
+        }
+
+    } 
 }
 
 function getAvailablePets(location,pet,distance){
@@ -25,7 +33,7 @@ function getAvailablePets(location,pet,distance){
         headers:{
             Authorization: `Bearer ${token.access_token}`}
     };
-
+   
     fetch(url, options)
     .then(response => {
         if (response.ok) {
