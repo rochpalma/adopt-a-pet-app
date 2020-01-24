@@ -10,19 +10,23 @@ function displayResults(responseJson){
                     <h3>${element.name}</h3>
                     <p>${element.gender} | ${element.age}</p>
                     <p>${element.breeds.primary}</p>
-                    <p>${element.contact.address.city}, ${element.contact.address.state}</p>
-                    <div id="${element.id}" class="modal">  
+                    <div id="${element.id}" class="modal">
+                        <h1>My name is ${element.name}!</h1>  
                         <img src="${picElement.full}" alt="animal" class="pet-img">
-                        <h3>${element.name}</h3>
-                        <p>${element.gender} | ${element.age}</p>
-                        <p>${element.breeds.primary}</p>
-                        <p>${element.contact.address.city}, ${element.contact.address.state}</p>
+                        <h2>Facts About Me</h2>
+                        <ul>
+                            <li>Breed: ${element.breeds.primary}</li>
+                            <li>Age: ${element.age}</li>
+                            <li>Size: ${element.size}</li>
+                            <li>Sex: ${element.gender}</li>
+                            <li>Location: ${element.contact.address.city}, ${element.contact.address.state}</li>
+                        </ul>
+                        <a href="${element.url}"><button>Adopt me!</button></a>
                     </div> 
                     <p><a href="#${element.id}" rel="modal:open">Meet Me</a></p>
                 </li>`  
             ); 
         }
-
     } 
 }
 
@@ -43,7 +47,7 @@ function getAvailablePets(location,pet,distance){
     })
     .then(responseJson => displayResults(responseJson))
     .catch(err => {
-        $('#js-error-message').text(`Something went wrong: ${err.message}`);
+        $('.js-error').text(`Something went wrong. Please try again.`);
     });
 }
 
