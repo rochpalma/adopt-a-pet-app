@@ -7,16 +7,16 @@ body{
 }
 
 /*temporary-start*/
-header,footer{
+footer{
     padding: 0 22%;
     background-color: #1b1b1d;
     border-bottom: 1px #f7f7f9 solid;
-    color: #ddd;
     top: 0;
     left: 0;
     right: 0;
     z-index: 10;
     height: 60px;
+    color: #FFFFFF;
 }
 
 footer p {
@@ -36,6 +36,20 @@ ul {
     padding: 0;
 }
 
+.icon{
+  margin-top: 10px;
+  height: 150px;
+}
+
+.icon-container{
+    width: 400px;
+    text-align: center;
+}
+
+.logo{
+    width: 650px;
+}
+
 .options-container li{
     margin: 0 12px;
 }
@@ -45,16 +59,20 @@ ul {
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 90vh;
+    height: 100vh;
 }
 
-.main-container{
-    padding: 25% 10%;
+.headline-container{
+    padding: 20% 5%;
+    width: 700px;
+    color: #FFFFFF;
 }
 
 .options-container{
-    padding: 10% 20%;
+    padding-left: 20%;
+    padding-right: 20%;
     margin-bottom: 20%;
+    margin: 10% 0;
 }
 .subheading{
     text-align: center;
@@ -76,3 +94,8 @@ ul {
     float: left;
     margin: 10px;
 }
+
+#map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+   }
