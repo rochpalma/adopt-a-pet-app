@@ -155,7 +155,7 @@ function getGeoLocation() {
 
 function initMap() {
     let mapOption = {
-        zoom: 8,
+        zoom: 10,
         center: new google.maps.LatLng(petLat, petLng)
     };
     let map = new google.maps.Map(document.getElementById('map'), mapOption);
