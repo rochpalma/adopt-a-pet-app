@@ -4,9 +4,10 @@ const mapApiKey = "AIzaSyDDp2Nt05EGsz8H3sFtmRAcHxLC_r17W5Q";
 
 let petArr = [];
 let searchLocation = "";
-let shelterName = "";
-let petLat = -25.344;
-let petLng = 131.036;
+//let shelterName = "";
+
+/*let petLat = -25.344;
+let petLng = 131.036;*/
 
 
 function getAvailablePets(location,pet,distance){
@@ -85,13 +86,16 @@ function petClickedInfo(petID){
     let state = "";
     for (let element of petArr) {
         if (element.id == petID) {
-            address = element.contact.address.address1;
+            if(element.contact.address.address1 !== null){
+                address = element.contact.address.address1;
+            }
             city = element.contact.address.city;
             state = element.contact.address.state;
-            getShelterName(element.organization_id);
+            console.log("org "+ element.organization_id);
             formatLocationQuery(address,city,state);
-            getGeoLocation();
-            initMap();
+            getShelterName(element.organization_id);
+            //getGeoLocation();
+            //initMap();
             break;
         }
      }
@@ -105,7 +109,6 @@ function getShelterName(shelterID){
             Authorization: `Bearer ${token.access_token}`
         })
     }
-   
     fetch(url, options)
     .then(response => {
         if (response.ok) {
@@ -113,12 +116,15 @@ function getShelterName(shelterID){
         }
         throw new Error(response.statusText);
     })
-    .then(responseJson => 
-        shelterName = responseJson.organization.name)
+    .then(responseJson => {
+        let shelterName = responseJson.organization.name;
+        console.log(responseJson);
+        console.log("shelter name is " + shelterName);
+        getGeoLocation(shelterName);
+    })
     .catch(err => {
-        $('.js-error').text(`Something went wrong. Please try again.`);
+        $('.js-error').text(`Something went wrong with the address. Please try again.`);
     });
-    console.log("shelter " + shelterName);
 }
 
 // format location for geocode parameter
@@ -132,19 +138,21 @@ function formatLocationQuery(address,city,state) {
         searchLocation = locationArr.join("+");
   }
 
-function getGeoLocation() {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${mapApiKey}`
+function getGeoLocation(shelterName) {
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${mapApiKey}`;
+    searchLocation = "";
     console.log(url);
     fetch(url)
       .then(response => {
         if (response.ok) {
-          return response.json()
+          return response.json();
         }
         throw new Error(response.statusText)
       })
       .then(responseJson => {
-        petLat = responseJson.results[0].geometry.location.lat;
-        petLng = responseJson.results[0].geometry.location.lng;
+        let petLat = responseJson.results[0].geometry.location.lat;
+        let petLng = responseJson.results[0].geometry.location.lng;
+        initMap(petLat,petLng,shelterName);
         console.log(responseJson);
         console.log(petLat + " and " + petLng);
       })
@@ -153,18 +161,30 @@ function getGeoLocation() {
       });
   }
 
-function initMap() {
+function initMap(petLat,petLng,shelterName) {
+    let coord = {
+        lat: petLat, 
+        lng: petLng
+    };
     let mapOption = {
-        zoom: 8,
+        zoom: 12,
         center: new google.maps.LatLng(petLat, petLng)
     };
-    let map = new google.maps.Map(document.getElementById('map'), mapOption);
-    let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(petLat, petLng),
-        map: map
-    });
+    //let map = new google.maps.Map(document.getElementById('map'), mapOption);
+    let map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 40,
+        center: coord,
+        //animation: google.maps.Animation.DROP//added
+        
+      });
+    
     let infowindow = new google.maps.InfoWindow({
         content: shelterName
+    });
+    let marker = new google.maps.Marker({
+       // position: new google.maps.LatLng(petLat, petLng),
+        position: coord,
+        map: map
     });
     infowindow.open(map, marker);
   }
