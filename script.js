@@ -4,10 +4,6 @@ const mapApiKey = "AIzaSyDDp2Nt05EGsz8H3sFtmRAcHxLC_r17W5Q";
 
 let petArr = [];
 let searchLocation = "";
-let shelterName = "";
-let petLat = -25.344;
-let petLng = 131.036;
-
 
 function getAvailablePets(location,pet,distance){
     let url = `https://api.petfinder.com/v2/animals?type=${pet}&location=${location}&distance=${distance}`;
@@ -17,7 +13,6 @@ function getAvailablePets(location,pet,distance){
             Authorization: `Bearer ${token.access_token}`
         })
     }
-   
     fetch(url, options)
     .then(response => {
         if (response.ok) {
@@ -27,14 +22,14 @@ function getAvailablePets(location,pet,distance){
     })
     .then(responseJson => displayResults(responseJson))
     .catch(err => {
-        $('.js-error').text(`Something went wrong. Please try again.`);
+        $('.js-error').text(`Something went wrong. Please try searching pets again.`);
     });
 }
 
 function displayResults(responseJson){
     let petImg = "";
     console.log(responseJson);
-    for(let element of responseJson.animals){
+    for(let [key,element] of responseJson.animals.entries()){
         petArr.push(element);
         
         if(element.photos.length == 0){
@@ -49,7 +44,7 @@ function displayResults(responseJson){
                 <h3>${element.name}</h3>
                 <p>${element.gender} | ${element.age}</p>
                 <p>${element.breeds.primary}</p>
-                <div id="${element.id}" class="modal">
+                <div id="${key}" class="modal">
                     <h1>My name is ${element.name}!</h1>  
                     <img src="${petImg}" alt="animal" class="pet-img">
                     <h2>Facts About Me</h2>
@@ -57,14 +52,14 @@ function displayResults(responseJson){
                         <li>Breed: ${element.breeds.primary}</li>
                         <li>Age: ${element.age}</li>
                         <li>Size: ${element.size}</li>
-                        <li>Sex: ${element.gender}</li>
+                        <li>Gender: ${element.gender}</li>
                         <li>Location: ${element.contact.address.city}, ${element.contact.address.state}</li>
                     </ul>
-                    <div id="map">
+                    <div id="${element.id}" class="map">
                     </div>
-                    <a href="${element.url}"><button>Adopt me!</button></a>
+                    <a href="${element.url}" target="_blank"><button>Adopt me!</button></a>
                 </div>
-                <p><a href="#${element.id}" rel="modal:open">Meet Me</a></p>
+                <p><a href="#${key}" rel="modal:open">Meet Me</a></p>
             </li>`  
         ); 
     }
@@ -73,39 +68,38 @@ function displayResults(responseJson){
 
 function petClicked(){
     $('.js-results-list').on('click','a', function(){
-        let id = $(this).attr('href').substring(1);
-        console.log('pet id of selected pet: ' + id);
-        petClickedInfo(id);
+        let index = $(this).attr('href').substring(1);
+        $('.js-error').empty();
+        console.log('pet index of selected pet: ' + index);
+        searchLocation = "";
+        petClickedInfo(index);
     }); 
 }
 
-function petClickedInfo(petID){
+function petClickedInfo(index){
     let address = "";
     let city = "";
     let state = "";
-    for (let element of petArr) {
-        if (element.id == petID) {
-            address = element.contact.address.address1;
-            city = element.contact.address.city;
-            state = element.contact.address.state;
-            getShelterName(element.organization_id);
-            formatLocationQuery(address,city,state);
-            getGeoLocation();
-            initMap();
-            break;
-        }
-     }
+    let orgID = "";
+    let mapID = "";
+    address = petArr[index].contact.address.address1;       
+    city = petArr[index].contact.address.city;
+    state = petArr[index].contact.address.state;
+    orgID = petArr[index].organization_id;
+    mapID = petArr[index].id;  
+    formatLocationQuery(address,city,state);
+    getShelterName(orgID,mapID);  
 }
 
-function getShelterName(shelterID){
+function getShelterName(shelterID,mapID){
     let url = `https://api.petfinder.com/v2/organizations/${shelterID}`;
+    let shelterName = "";
     console.log(url);
     const options = {
         headers: new Headers({
             Authorization: `Bearer ${token.access_token}`
         })
     }
-   
     fetch(url, options)
     .then(response => {
         if (response.ok) {
@@ -113,15 +107,17 @@ function getShelterName(shelterID){
         }
         throw new Error(response.statusText);
     })
-    .then(responseJson => 
-        shelterName = responseJson.organization.name)
+    .then(responseJson => {
+        shelterName = responseJson.organization.name;
+        console.log(responseJson);
+        console.log("shelter name is " + shelterName);
+        getGeoLocation(shelterName,mapID);
+    })
     .catch(err => {
-        $('.js-error').text(`Something went wrong. Please try again.`);
+        $('.js-error').text(`Something went wrong with the address. Please try again.`);
     });
-    console.log("shelter " + shelterName);
 }
 
-// format location for geocode parameter
 function formatLocationQuery(address,city,state) {
     let locationArr = [];
         if(address !== null) {
@@ -132,41 +128,48 @@ function formatLocationQuery(address,city,state) {
         searchLocation = locationArr.join("+");
   }
 
-function getGeoLocation() {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${mapApiKey}`
+function getGeoLocation(shelterName,mapID) {
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${mapApiKey}`;
     console.log(url);
     fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
+    .then(response => {
+    if (response.ok) {
+        return response.json();
+    }
         throw new Error(response.statusText)
-      })
-      .then(responseJson => {
-        petLat = responseJson.results[0].geometry.location.lat;
-        petLng = responseJson.results[0].geometry.location.lng;
-        console.log(responseJson);
-        console.log(petLat + " and " + petLng);
-      })
-      .catch(err => {
+    })
+    .then(responseJson => getCoord(responseJson,shelterName,mapID))
+    .catch(err => {
+        console.log(err);
         $('.js-error').text(`Something went wrong. Please try again.`)
-      });
+    });
   }
 
-function initMap() {
-    let mapOption = {
+
+function getCoord(responseJson,shelterName,mapID){
+    let petLat, petLng;
+    petLat = responseJson.results[0].geometry.location.lat;
+    petLng = responseJson.results[0].geometry.location.lng;
+    initMap(petLat,petLng,shelterName,mapID);
+    console.log(responseJson);
+    console.log(petLat + " and " + petLng);
+}
+
+function initMap(petLat,petLng,shelterName,mapID){
+    console.log("currShelter value is " + shelterName);
+    let map = new google.maps.Map(document.getElementById(mapID),{
         zoom: 10,
         center: new google.maps.LatLng(petLat, petLng)
-    };
-    let map = new google.maps.Map(document.getElementById('map'), mapOption);
+    })
     let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(petLat, petLng),
-        map: map
+        position: {lat: petLat, lng: petLng},
+        map: map,
+        title: 'Shelter'
     });
-    let infowindow = new google.maps.InfoWindow({
-        content: shelterName
+    let infowindow = new google.maps.InfoWindow({ 
+        content: shelterName,
     });
-    infowindow.open(map, marker);
+    infowindow.open(map, marker);  
   }
 
 function watchForm() {
