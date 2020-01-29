@@ -7,7 +7,6 @@ let searchLocation = "";
 
 function getAvailablePets(location,pet,distance){
     let url = `https://api.petfinder.com/v2/animals?type=${pet}&location=${location}&distance=${distance}`;
-    console.log(url);
     const options = {
         headers: new Headers({
             Authorization: `Bearer ${token.access_token}`
@@ -28,7 +27,6 @@ function getAvailablePets(location,pet,distance){
 
 function displayResults(responseJson){
     let petImg = "";
-    console.log(responseJson);
     for(let [key,element] of responseJson.animals.entries()){
         petArr.push(element);
         
@@ -109,7 +107,6 @@ function getShelterName(shelterID,mapID){
     })
     .then(responseJson => {
         shelterName = responseJson.organization.name;
-        console.log(responseJson);
         console.log("shelter name is " + shelterName);
         getGeoLocation(shelterName,mapID);
     })
@@ -145,17 +142,16 @@ function getGeoLocation(shelterName,mapID) {
     });
   }
 
+
 function getCoord(responseJson,shelterName,mapID){
     let petLat, petLng;
     petLat = responseJson.results[0].geometry.location.lat;
     petLng = responseJson.results[0].geometry.location.lng;
     initMap(petLat,petLng,shelterName,mapID);
-    console.log(responseJson);
     console.log(petLat + " and " + petLng);
 }
 
 function initMap(petLat,petLng,shelterName,mapID){
-    console.log("currShelter value is " + shelterName);
     let map = new google.maps.Map(document.getElementById(mapID),{
         zoom: 10,
         center: new google.maps.LatLng(petLat, petLng)
@@ -163,6 +159,7 @@ function initMap(petLat,petLng,shelterName,mapID){
     let marker = new google.maps.Marker({
         position: {lat: petLat, lng: petLng},
         map: map,
+        animation: google.maps.Animation.DROP,
         title: 'Pet Shelter'
     });
     let infowindow = new google.maps.InfoWindow({ 
