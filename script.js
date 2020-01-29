@@ -145,6 +145,7 @@ function getGeoLocation(shelterName,mapID) {
     });
   }
 
+
 function getCoord(responseJson,shelterName,mapID){
     let petLat, petLng;
     petLat = responseJson.results[0].geometry.location.lat;
