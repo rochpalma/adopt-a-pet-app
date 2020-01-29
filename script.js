@@ -163,7 +163,7 @@ function initMap(petLat,petLng,shelterName,mapID){
     let marker = new google.maps.Marker({
         position: {lat: petLat, lng: petLng},
         map: map,
-        title: 'Shelter'
+        title: 'Pet Shelter'
     });
     let infowindow = new google.maps.InfoWindow({ 
         content: shelterName,
