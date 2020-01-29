@@ -141,7 +141,7 @@ function getGeoLocation(shelterName,mapID) {
     .then(responseJson => getCoord(responseJson,shelterName,mapID))
     .catch(err => {
         console.log(err);
-        $('.js-error').text(`Something went wrong. Please try again.`)
+        $('.js-error').text(`Something went wrong.`)
     });
   }
 
