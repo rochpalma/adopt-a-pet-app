@@ -95,7 +95,7 @@ ul {
     margin: 10px;
 }
 
-#map {
+.map {
     height: 400px;  
     width: 100%; 
 }
