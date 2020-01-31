@@ -38,10 +38,13 @@ function displayResults(responseJson){
         }
         $('.js-results-list').append(
             `<li class="box">
-                <img src="${petImg}" alt="animal" class="pet-img">
-                <h3>${element.name}</h3>
-                <p>${element.gender} | ${element.age}</p>
-                <p>${element.breeds.primary}</p>
+                <a href="#${key}" rel="modal:open"><img src="${petImg}" alt="animal" class="pet-img"></a>
+                <div class="profile-container">
+                    <h3>${element.name}</h3>
+                    <p>${element.gender} | ${element.age}</p>
+                    <p>${element.breeds.primary}</p>
+                    <p><a href="#${key}" rel="modal:open" class="btn">Meet Me</a></p>
+                </div>
                 <div id="${key}" class="modal">
                     <h1>My name is ${element.name}!</h1>  
                     <img src="${petImg}" alt="animal" class="pet-img">
@@ -57,7 +60,7 @@ function displayResults(responseJson){
                     </div>
                     <a href="${element.url}" target="_blank"><button>Adopt me!</button></a>
                 </div>
-                <p><a href="#${key}" rel="modal:open">Meet Me</a></p>
+                
             </li>`  
         ); 
     }
@@ -171,7 +174,9 @@ function initMap(petLat,petLng,shelterName,mapID){
 function watchForm() {
     $('form').submit(event => {
       event.preventDefault();
+      $('.empty').remove();
       $('.js-results-list').empty();
+      $('.js-error').empty();
       petArr = [];
       const location = $('#location').val();
       const pet = $('#pets').val();
