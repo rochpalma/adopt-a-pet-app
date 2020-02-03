@@ -38,29 +38,30 @@ function displayResults(responseJson){
         }
         $('.js-results-list').append(
             `<li class="box">
-                <a href="#${key}" rel="modal:open"><img src="${petImg}" alt="animal" class="pet-img"></a>
+                <a href="#${key}" rel="modal:open"><img src="${petImg}" alt="${element.name} picture" class="pet-img"></a>
                 <div class="profile-container">
                     <h3>${element.name}</h3>
                     <p>${element.gender} | ${element.age}</p>
                     <p>${element.breeds.primary}</p>
+                    <p>${element.contact.address.city}, ${element.contact.address.state}</p>
                     <p><a href="#${key}" rel="modal:open" class="btn">Meet Me</a></p>
                 </div>
                 <div id="${key}" class="modal">
                     <h1>My name is ${element.name}!</h1>  
                     <img src="${petImg}" alt="animal" class="pet-img">
-                    <h2>Facts About Me</h2>
                     <ul>
-                        <li>Breed: ${element.breeds.primary}</li>
-                        <li>Age: ${element.age}</li>
-                        <li>Size: ${element.size}</li>
-                        <li>Gender: ${element.gender}</li>
-                        <li>Location: ${element.contact.address.city}, ${element.contact.address.state}</li>
+                        <li><span class="label">Breed:</span> ${element.breeds.primary}</li>
+                        <li><span class="label">Age:</span> ${element.age}</li>
+                        <li><span class="label">Size:</span> ${element.size}</li>
+                        <li><span class="label">Gender:</span> ${element.gender}</li>
+                        <li><span class="label">Location:</span> ${element.contact.address.city}, ${element.contact.address.state}</li>
                     </ul>
                     <div id="${element.id}" class="map">
                     </div>
-                    <a href="${element.url}" target="_blank"><button>Adopt me!</button></a>
-                </div>
-                
+                    <div class="btn-container">
+                        <a href="${element.url}#petInquiry" target="_blank" class="btn">Adopt me!</a>
+                    </div>
+                </div> 
             </li>`  
         ); 
     }
