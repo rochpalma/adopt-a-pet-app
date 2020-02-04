@@ -272,7 +272,7 @@ ul {
 }
 
 .box{
-    width: 350px;
+    width: 250px;
     height: 450px;
     margin: 0 auto 20px auto;
 }
@@ -328,6 +328,9 @@ ul {
         width: 200px;  
     }
 
+    .box{
+        width: 350px;
+    }
 
     footer p {
         font-size: 16px;
@@ -354,19 +357,6 @@ ul {
     .subheading{
         font-size: 60px;
     }
-
-    .options-container ul {
-        flex-direction: row;
-    }
-
-    .options-container li{
-        margin: 0 12px;
-    }
-
-    .icon{
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
     
     .input-container{
         flex-direction: row;
@@ -376,14 +366,6 @@ ul {
     input, select{
         width: 250px;
         margin-right: 10px;
-    }
-
-    .empty{
-        margin: 10% 0;
-    }
-
-    .magnify{ 
-        width: 200px; 
     }
 
     .box{
@@ -424,33 +406,9 @@ ul {
         margin-right: 30px;
     }
 
-
-    .subheading{
-        font-size: 60px;
-    }
-
-
-    .options-container ul {
-        flex-direction: row;
-    }
-
-    .options-container li{
-        margin: 0 12px;
-    }
-
-    .icon{
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-
     fieldset{
         
         padding-bottom: 30px;
-    }
-
-    .input-container{
-        flex-direction: row;
-        justify-content: center;
     }
 
     input, select{
@@ -458,31 +416,11 @@ ul {
         margin-bottom: 10px;
     }
 
-    .empty{
-        margin: 10% 0;
-    }
-
-    .magnify{   
-        width: 200px;  
-    }
-
-    .box{
-        width: 30%;
-        height: 450px;
-        float: left;
-        margin: 20px 10px 10px;  
-    }
-
-
     .box h3{
         font-size: 30px;
     }
 
     .box p{
-        font-size: 18px;
-    }
-
-    footer p {
         font-size: 18px;
     }
 
