@@ -194,6 +194,5 @@ function watchForm(){
     });
   }
 
-
   $(watchForm);
   $(petClicked);
