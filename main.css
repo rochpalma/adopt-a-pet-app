@@ -35,9 +35,9 @@ fieldset{
 }
 
 input, select{
-    width: 350px;
+    width: 300px;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
     border-radius: 8px;
     padding: 5px 20px;
@@ -57,6 +57,7 @@ footer{
 footer p {
     text-align: center;
     color: #FFFFFF;
+    font-size: 14px;
 }
 
 main{
@@ -101,7 +102,7 @@ select:hover {
 
 
 .logo{
-    width: 450px;
+    width: 350px;
 }
 
 .center{
@@ -160,7 +161,7 @@ h2.slogan{
     box-shadow: 0 0 10px 5px #cdd2e0;
 }
 
-.btn:hover {
+.btn:hover{
     color: #FFFFFF;
     background-color: #5d595a;
 }
@@ -197,7 +198,7 @@ h2.slogan{
 }
 
 .headline-container{
-    padding: 60% 5%;
+    padding: 60% 0;
     width: 400px;
     color: #FFFFFF;
 }
@@ -217,7 +218,7 @@ h2.slogan{
 
 .slogan-container{
     margin-left: 60px;
-    width: 300px;
+    width: 260px;
     border: 1px solid #FFFFFF;
     padding: 10px 15px;
 }
@@ -273,7 +274,7 @@ ul {
 .box{
     width: 350px;
     height: 450px;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 20px auto;
 }
 
 .box h3{
@@ -325,6 +326,11 @@ ul {
 
     .magnify{
         width: 200px;  
+    }
+
+
+    footer p {
+        font-size: 16px;
     }
 
 }
@@ -395,6 +401,10 @@ ul {
 
     .box p{
         font-size: 16px;
+    }
+
+    footer p {
+        font-size: 18px;
     }
 }
 
@@ -469,6 +479,10 @@ ul {
     }
 
     .box p{
+        font-size: 18px;
+    }
+
+    footer p {
         font-size: 18px;
     }
 

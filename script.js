@@ -1,12 +1,12 @@
 'use strict';
 
 const mapApiKey = "AIzaSyDDp2Nt05EGsz8H3sFtmRAcHxLC_r17W5Q";
-
 let petArr = [];
 let searchLocation = "";
 
+//call PetFinder API
 function getAvailablePets(location,pet,distance){
-    let url = `https://api.petfinder.com/v2/animals?type=${pet}&location=${location}&distance=${distance}`;
+    let url = `https://api.petfinder.com/v2/animals?type=${pet}&location=${location}&distance=${distance}&limit=50`;
     const options = {
         headers: new Headers({
             Authorization: `Bearer ${token.access_token}`
@@ -25,6 +25,7 @@ function getAvailablePets(location,pet,distance){
     });
 }
 
+//display the pet details
 function displayResults(responseJson){
     let petImg = "";
     for(let [key,element] of responseJson.animals.entries()){
@@ -64,10 +65,11 @@ function displayResults(responseJson){
                 </div> 
             </li>`  
         ); 
-    }
+    }                    
     console.log(petArr);
 }
 
+//get the index of the selected pet
 function petClicked(){
     $('.js-results-list').on('click','a', function(){
         let index = $(this).attr('href').substring(1);
@@ -78,6 +80,7 @@ function petClicked(){
     }); 
 }
 
+//retrieve the location details of the selected pet to be able to display the map in the modal
 function petClickedInfo(index){
     let address = "";
     let city = "";
@@ -93,6 +96,7 @@ function petClickedInfo(index){
     getShelterName(orgID,mapID);  
 }
 
+//get the shelter name value
 function getShelterName(shelterID,mapID){
     let url = `https://api.petfinder.com/v2/organizations/${shelterID}`;
     let shelterName = "";
@@ -119,6 +123,7 @@ function getShelterName(shelterID,mapID){
     });
 }
 
+//format location to make the proper syntax for geocode parameter
 function formatLocationQuery(address,city,state) {
     let locationArr = [];
         if(address !== null) {
@@ -129,6 +134,7 @@ function formatLocationQuery(address,city,state) {
         searchLocation = locationArr.join("+");
   }
 
+//call geocode api
 function getGeoLocation(shelterName,mapID) {
     let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${mapApiKey}`;
     console.log(url);
@@ -146,7 +152,7 @@ function getGeoLocation(shelterName,mapID) {
     });
   }
 
-
+  //get the coordinates
 function getCoord(responseJson,shelterName,mapID){
     let petLat, petLng;
     petLat = responseJson.results[0].geometry.location.lat;
@@ -155,6 +161,7 @@ function getCoord(responseJson,shelterName,mapID){
     console.log(petLat + " and " + petLng);
 }
 
+//load map with a marker and displays the shelter name
 function initMap(petLat,petLng,shelterName,mapID){
     let map = new google.maps.Map(document.getElementById(mapID),{
         zoom: 10,
@@ -172,7 +179,8 @@ function initMap(petLat,petLng,shelterName,mapID){
     infowindow.open(map, marker);  
   }
 
-function watchForm() {
+  //event handler for submit button on adopt page screen
+function watchForm(){
     $('form').submit(event => {
       event.preventDefault();
       $('.empty').remove();
@@ -185,6 +193,7 @@ function watchForm() {
       getAvailablePets(location,pet,distance);
     });
   }
+
 
   $(watchForm);
   $(petClicked);
