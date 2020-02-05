@@ -91,7 +91,7 @@ select:hover {
 }
 
 .modal h1{
-    font-size: 50px;
+    font-size: 30px;
     margin: 0;
     text-align: center;
 }
@@ -99,7 +99,6 @@ select:hover {
 .label{
     color:#7fbf41;
 }
-
 
 .logo{
     width: 350px;
@@ -141,7 +140,7 @@ select:hover {
     margin: 10px;
  }
 
-h2.slogan{
+.slogan{
     font-size: 18px;
     font-weight: 400;
     text-align: center;
@@ -193,16 +192,13 @@ h2.slogan{
     font-family: BlackGround;
 }
 
-.btn-container,.modal ul{
-    text-align: center;
-}
-
 .headline-container{
     padding: 60% 0;
     width: 400px;
     color: #FFFFFF;
 }
 
+.btn-container,.modal ul,
 .header-container,.search-container{
     text-align: center;
 }
@@ -226,7 +222,6 @@ h2.slogan{
 .search-container,.header-container{
     background-color: #7fbf41;
 }
-
 
 .icon-container{
     width: 200px;
@@ -288,6 +283,11 @@ ul {
     margin: 30px 0; 
 }
 
+.error{
+    color: #FF0000;
+    text-align: center;
+}
+
 @media screen and (min-width: 600px) {
     .logo{
         width: 550px;
@@ -326,6 +326,10 @@ ul {
 
     .magnify{
         width: 200px;  
+    }
+
+    .modal h1{
+        font-size: 50px;
     }
 
     .box{
