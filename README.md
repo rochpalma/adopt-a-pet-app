@@ -18,7 +18,7 @@ The app is written using:
 * jQuery
 
 ## Screenshots
-![Image of Home Page](images/homepage-screenshot.png)
+![Image of Home Page](images/homepage-screenshot.jpg)
 ![Image of Home Page](images/home-section-screenshot.png)
 ![Image of Search Page](images/search-screenshot.png)
 ![Image of Result list](images/result-screenshot.png)
