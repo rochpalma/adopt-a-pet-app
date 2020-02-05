@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Adopt a pet within the given area">
     <title>Search Pets</title> 
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
@@ -11,51 +12,48 @@
 </head>
 <body>
     <nav>
-        <div class="header-container">
-               
+        <div class="header-container">               
             <a href="index.html" class="home"><img src="images/back.png" alt="Home button" class="back"></a>
             <a href="index.html"><img src="images/black_logo.png" alt="adopt-a-pet-logo" class="logo center"></a>
         </div>
     </nav>
     <main>
-        <div class="main-container">
-            <div class="search-container">
-                    <form>
-                        <fieldset>
-                            <div class ="input-container">
-                                    <input placeholder="City, State, or Zip" type="text" name="location" id="location" required/>
-                                    <select name="pets" id="pets" required>
-                                        <option value="dog" selected>Dogs</option>
-                                        <option value="cat">Cats</option>
-                                        <option value="rabbit">Rabbits</option>
-                                        <option value="horse">Horses</option>
-                                        <option value="bird">Birds</option>
-                                        <option value="barnyard">Barnyard</option>
-                                        <option value="small-furry">Small and Furry</option>
-                                        <option value="scales-fins-other">Scales, Fins, and Other</option>
-                                    </select>
-                                    <select name="distance" id="distance" required>
-                                        <option value="10" selected>10 miles</option>
-                                        <option value="25">25 miles</option>
-                                        <option value="50">50 miles</option>
-                                        <option value="100">100 miles</option>
-                                    </select>
-                                    <input type="submit" value="Search" id="submit" class="search-btn"> 
-                            </div>                           
-                        </fieldset>
-                    </form>
-                </div>
-                <section class="js-results">
-                    <div class="pet-result-container">
-                        <div class="empty">
-                            <img src="images/magnify.png" class="magnify">
-                            <p>Throw us a bone!</p>
-                        </div>
-                        <p class="js-error"></p>                    
-                        <ul class="js-results-list"></ul>
-                    </div>  
-                </section>
+        <div class="search-container">
+            <form>
+                <fieldset>
+                    <div class ="input-container">
+                        <input placeholder="City, State, or Zip" type="text" name="location" id="location" required/>
+                        <select name="pets" id="pets" required>
+                            <option value="dog" selected>Dogs</option>
+                            <option value="cat">Cats</option>
+                            <option value="rabbit">Rabbits</option>
+                            <option value="horse">Horses</option>
+                            <option value="bird">Birds</option>
+                            <option value="barnyard">Barnyard</option>
+                            <option value="small-furry">Small and Furry</option>
+                            <option value="scales-fins-other">Scales, Fins, and Other</option>
+                        </select>
+                        <select name="distance" id="distance" required>
+                            <option value="10" selected>10 miles</option>
+                            <option value="25">25 miles</option>
+                            <option value="50">50 miles</option>
+                            <option value="100">100 miles</option>
+                        </select>
+                        <input type="submit" value="Search" id="submit" class="search-btn"> 
+                    </div>                           
+                </fieldset>
+            </form>
         </div>
+        <section class="js-results">
+            <div class="pet-result-container">
+                <div class="empty">
+                    <img src="images/magnify.png" class="magnify">
+                    <p>Throw us a bone!</p>
+                </div>
+                <p class="js-error error"></p>                    
+                <ul class="js-results-list"></ul>
+            </div>  
+        </section>
     </main>
     <footer>
         <p>© 2020 Rochelle Palma</p>
