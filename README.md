@@ -1,7 +1,7 @@
 # Adopt a Pet
 This app would help users locate adoptable pet in a given area. 
 
-## [Live Site] (https://rochpalma.github.io/adopt-a-pet-app/)
+## [Live Site](https://rochpalma.github.io/adopt-a-pet-app/)
 
 ## Introduction
 I’m a big lover of animals that’s why I came up with this Adopt a Pet app for my project. I wanted a way for users to search for adoptable pets in need of forever home. This will also promotes the idea of supporting pet adoption that when you adopt, you save a loving animal and open up shelter space for another animal that might desperately need it.
