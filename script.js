@@ -4,7 +4,8 @@ const mapApiKey = "AIzaSyDDp2Nt05EGsz8H3sFtmRAcHxLC_r17W5Q";
 let petArr = [];
 let searchLocation = "";
 
-//call PetFinder API
+//Lupet mo naman boss
+//call PetFinder API.
 function getAvailablePets(location,pet,distance){
     let url = `https://api.petfinder.com/v2/animals?type=${pet}&location=${location}&distance=${distance}&limit=50`;
     const options = {
